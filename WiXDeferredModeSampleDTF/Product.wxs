@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Product Id="*" Name="WiXDeferredModeSampleDTF" Language="1033" Version="1.0.0.0" Manufacturer="-" UpgradeCode="62b27461-b52e-4f76-862b-1119ce6a061b">
+        <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+        <MediaTemplate EmbedCab="yes" />
+
+        <UIRef Id="WixUI_Mondo" />
+
+        <Property Id="COMPANYID" Hidden="yes" Secure="yes">The Company Name</Property>
+
+        <Binary Id="CustomActions" SourceFile="$(var.CustomActionSample.TargetDir)$(var.CustomActionSample.TargetName).CA.dll" />
+
+        <CustomAction Id="SaveDeferredCustomActionData" HideTarget="yes" BinaryKey="CustomActions" Execute="immediate" DllEntry="SaveDeferredCustomActionData" />
+        <CustomAction Id="DeferredAction" HideTarget="yes" BinaryKey="CustomActions" Execute="deferred" DllEntry="DeferredAction" />
+
+        <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+
+        <Feature Id="ProductFeature" Title="ProjectPaths" Level="1" />
+
+        <InstallExecuteSequence>
+          <Custom Action='SaveDeferredCustomActionData' After='InstallInitialize'></Custom>
+
+          <!-- Do not schedule this custom action yourself, WiX auto-magic will do so -->
+          <!--<Custom Action='DeferredAction' Before='InstallFinalize'></Custom>-->
+        </InstallExecuteSequence>
+
+        <Directory Id="TARGETDIR" Name="SourceDir">
+          <Directory Id="ProgramFilesFolder">
+            <Directory Id="INSTALLFOLDER" Name="Test Folder">
+
+              <Component Feature="ProductFeature">
+                <File Source="$(env.SystemRoot)\notepad.exe" />
+              </Component>
+
+            </Directory>
+          </Directory>
+        </Directory>
+
+      </Product>
+    </Wix>
