@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-	<Product Id="*" Name="WiXDeferredModeSampleDTF" Language="1033" Version="1.0.0.0" Manufacturer="-" UpgradeCode="62b27461-b52e-4f76-862b-1119ce6a061b">
+	<Product Id="*" Name="WiXDeferredModeSampleDTF" Language="1033" Version="1.0.0.0" Manufacturer="-" UpgradeCode="PUT-GUID-HERE">
         <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
         <MediaTemplate EmbedCab="yes" />
 
